@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部落狗.DLOG</title>
+    <link rel="stylesheet" type="text/css" href="">
+    <style>
+        @font-face {
+          font-family: 'CustomFont';
+          src: url('ZenMaruGothic-Regular.ttf') format('truetype');
+        }
+        
+        body {
+            /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+            font-family: 'CustomFont', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transform: scale(0.85);
+            transform-origin: top center;
+        }
+
+        h2 {
+          text-align: center;
+          color: #333;
+        }
+
+        header {
+            display: flex;
+            background-color:#DEB887;
+            color: #fff;
+            height: 80px;
+            padding: 20px;
+            font-size: 25px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav {
+            background-color: #B8860B;
+            color: #fff;
+            padding: 15px;
+            height: 28px;
+            font-size: 21px;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        nav ul li {
+            margin: 0 8.5px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            margin: 20px;
+        }
+
+        .post {
+            margin-bottom: 40px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .post h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .post p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .post a {
+            color: #DEB887;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #DEB887;
+            color: #fff;
+            height: 50px;
+            padding: 20px;
+            text-align: center;
+            line-height: 0.2;
+        }
+
+        .marquee {
+            display: flex;
+            background-color: #f4f4f4;
+            padding: 8px;
+            overflow: hidden;
+            font-size: 18px;
+        }
+
+        .marquee p {
+            display: inline-block;
+            white-space: nowrap;
+            margin: 0;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(350%);
+            }
+        }
+
+        .tabs {
+            margin-bottom: 20px;
+        }
+
+        .tabs ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tabs ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .tabs ul li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .tabs ul li a.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .page {
+            display: none;
+            text-align: center;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 新增 :target 樣式 */
+        .page:target {
+            display: block;
+        }
+
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-overlay.active {
+            display: none;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+        .site-name {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .product-listing {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .product {
+            width: calc(20% - 10px);
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .product p {
+            margin-bottom: 10px;
+            font-size: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .product a {
+            display: none;
+        }
+
+        .product .rating {
+          font-size: 18px;
+          color: rgb(224, 224, 92);
+        }
+
+        .add-to-cart {
+            background-color: #DEB887;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            margin-bottom: 2px;
+            top: 0.001px; 
+        }
+
+        .slideshow {
+            position: relative;
+            /* width: 100%; */
+            height: 0;
+            padding-bottom: 56.25%;
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .article-list {
+          list-style: none;
+          padding: 0;
+          margin-top: 10px;
+        }
+
+        .article-list li {
+          margin-bottom: 10px;
+        }
+
+        .article-list li a {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: #333;
+        }
+
+        .article-list li a img {
+          width: 300px;
+          height: 200px;
+          margin-right: 10px;
+        }
+
+        .article-info-wrapper {
+          background-color: #FAF0E6;
+          padding: 10px;
+          border-radius: 5px;
+          width: 100%;
+        }
+
+        .article-info-wrapper h3 {
+          font-size: 23px;
+          margin-top: 0;
+          margin-bottom: 10px;
+          text-align: left;
+        }
+
+        .article-info-wrapper .source .article-details{
+          font-size: 14px;
+          font-weight: bold;
+          color: #888888;
+          text-align: left;
+        }
+
+        .article-info-wrapper .source {
+          text-align: right;
+        }
+
+        .article-info-wrapper .description {
+          font-size: 14px;
+          color: #333333;
+          text-align: left;
+        }
+
+        .article-info-wrapper .source, .article-info-wrapper .description {
+          display: block;
+          font-size: 20px;
+        }
+
+        section {
+          margin-bottom: 40px;
+        }
+
+        .section, h1 {
+          display: block;
+          background-color: #DEB887;
+          height: 40px;
+          width: auto;
+          text-align: left;
+          margin: 15px;
+          line-height: 25px;
+          font-size: 40px;
+        }
+
+        .section, h2 {
+          text-align: left;
+          margin: 10px;
+          line-height: 28px;
+          font-size: 25px;
+        }
+
+        .section, h3 {
+          font-size: 30px;
+        }
+
+        .section, p {
+          text-align: left;
+          font-size: 28px;
+        }
+
+        ul#brandList li {
+          /* margin-bottom: 10px; */
+          font-size: 25px;
+          list-style-type: disc;
+          margin-bottom: 15px;
+        }
+
+        ul {
+          list-style: none;
+          text-align: left;
+        }
+
+        .product2-info-wrapper {
+          background-color: #FAF0E6;
+          padding: 10px;
+          border-radius: 5px;
+          width: 100%;
+        }
+
+        .product2 {
+          margin-bottom: 20px;
+        }
+
+        .product2 img {
+          width: 600px;
+          height: auto;
+        }
+
+        .swiper-container {
+          width: 700px; /* 輪播容器的寬度 */
+          height: 450px; /* 輪播容器的高度 */
+          position: relative;
+          overflow: hidden;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .swiper-wrapper {
+          width: calc(100% * 3); /* 輪播容器寬度為每張照片寬度的總和 */
+          display: flex;
+          transition: transform 0.3s ease;
+        }
+
+        .swiper-slide {
+          width: calc(100% / 3); /* 每張照片的寬度，這裡假設有三張照片 */
+        }
+
+        .swiper-slide img {
+          width: 100%; /* 圖片的寬度 */
+          height: 100%; /* 圖片的高度 */
+          object-fit: cover;
+          border-radius: 5px;
+        }
+
+        .pet-card {
+          /* border: 1px solid #ccc; */
+          display: flex;
+          flex-direction: column;
+          /* position: relative; */
+          /* border-radius: 5px; */
+          /* padding: 10px; */
+          /* justify-content: center; */
+          align-items: center;
+          max-width: 700px;
+          margin: 0 auto;
+          /* margin-bottom: 20px; */
+        }
+
+        .pet-image-container {
+          position: relative;
+          width: 100%;
+          height: 0;
+          padding-bottom: 64%; /* 調整此值以控制照片的高度 */
+          overflow: hidden;
+          border-radius: 5px;
+        }
+
+        .pet-image {
+          /* width: 700px; */
+          width: 100%;
+          /* height: 450px; */
+          height: auto;
+          object-fit: cover;
+          border-radius: 5px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin: 0 auto;
+        }
+
+        .pet-info-container {
+          text-align: center;
+          width: calc(90vw - 40px);
+          margin-top: 20px;
+        }
+
+        .pet-name {
+          font-weight: bold;
+          margin-top: 10px;
+          text-align: center;
+        }
+
+        @media (max-width: 768px) {
+          .pet-card {
+            justify-content: flex-start;
+          }
+          .pet-image {
+            position: static;
+            transform: none;
+            margin: 0;
+          }
+        }
+
+        .pet-description {
+          color: #666;
+          margin-top: 5px;
+          text-align: center;
+        }
+
+        .pet-description, h2 {
+          color: #666;
+          margin-top: 5px;
+          text-align: center;
+          font-size: 25px;
+        }
+
+        .pet-description, p {
+          color: #666;
+          margin-top: 5px;
+          text-align: left;
+          font-size: 20px;
+        }
+
+        .pet-info-wrapper {
+          background-color: #FAF0E6;
+          padding: 10px;
+          border-radius: 5px;
+          width: 100%;
+        }
+
+        .swiper-pagination {
+          position: absolute;
+          bottom: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 40px;
+          height: 40px;
+          /* background-color: rgba(0, 0, 0, 0.5); */
+          color:#ccc;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 10;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+          content: "";
+          display: inline-block;
+          border-top: 8px solid transparent;
+          border-bottom: 8px solid transparent;
+        }
+
+        .swiper-button-next {
+          right: 10px;
+        }
+
+        .swiper-button-next::after {
+          border-left: 3px solid #ccc;
+        }
+
+        .swiper-button-prev {
+          left: 10px;
+        }
+
+        .swiper-button-prev::after {
+          border-right: 3px solid #ccc;
+        }
+
+        .activity {
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-bottom: 10px;
+        }
+
+        #activities-container {
+          margin: 20px;
+          padding: 10px;
+          /* background-color: #ff6c00; */
+          border: 1px solid #ccc;
+        }
+
+        .timeElement {
+          text-align: center;
+        }
+
+        .addressElement {
+          text-align: center;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+        .member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .member img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .member h2 {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .member p {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" /> -->
+  </head>
+<body onload="scrollToHome()">
+  <header>
+    <h1>部落狗.DLOG</h1>
+  </header>
+
+  <!-- 跑馬燈 -->
+  <div class="marquee">
+    <p>這裡有提供許多有關狗狗各方面的知識哦！ | 領養代替購買，領養不棄養！！！ | 歡迎追蹤小編家狗狗的IG帳號：shiba_una_0903！</p>
+  </div>
+
+  <nav>
+    <ul class="tabs">
+      <li><a href="#home">首頁</a></li>
+      <li><a href="#food">飲食指南</a></li>
+      <li><a href="#clothing">胸背推薦</a></li>
+      <li><a href="#housing">住所推薦</a></li>
+      <li><a href="#activity">活動推薦</a></li>
+      <li><a href="#shopping">購買飼料</a></li>
+      <li><a href="#group">小組成員介紹</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- 首頁 -->
+    <div class="page" id="home">
+        <div class="slideshow">
+          <img src="dog.jpg" alt="部落狗">
+          <img src="dog run.jpg" alt="部落狗">
+          <img src="dog eat.jpg" alt="部落狗">
+          <img src="dog cloth.jpg" alt="部落狗">
+          <img src="dog hotel.jpg" alt="部落狗">
+        </div>
+        <h2>為您的忠誠伴侶提供最好的</h2>
+        <p>
+          歡迎來到部落狗（Dlog）！
+          我們是一個獨特的網站，專注於狗狗的食衣住行育樂。在這裡，我們結合了Blog和Dog，為狗狗愛好者們提供一個豐富多元的平台。
+          我們提供有價值的資訊、建議和產品推薦，幫助你給予你的毛孩最好的照顧。不論是關於狗狗的營養飲食、時尚舒適的狗狗衣物、安全舒適的住所，還是如何提供有趣的娛樂與遊戲，我們都有你所需的一切。
+          探索我們的網站，尋找最適合你和你的狗狗的選擇，並加入我們的部落，與其他狗狗愛好者們分享你的故事和經驗。讓部落狗成為你照顧毛孩的指南和購物樂園！
+        </p>
+      </div>
+    </div>
+
+    <!-- 食物推薦 -->
+    <div class="page" id="food">
+      <!-- <h2>飲食指南</h2> -->
+      <!-- <p>這是關於寵物狗食物推薦的內容。</p> -->
+      <!-- <h3>專欄文章</h3> -->
+      <ul class="article-list">
+        <!-- 幼犬 -->
+        <li>
+          <a href="https://www.sofydog.com/tw/SofyDOG/blog-detail/380/">
+            <img src="幼犬.png" alt="">
+            <div class="article-info-wrapper">
+              <h3>2023幼犬主食推薦｜新手飼主不可不知的幼犬照護重點！</h3>
+              <div class="article-details">
+                <span class="description">
+                  幼犬軟萌小小隻的非常可愛，但他們就像小Baby一樣，在這個階段非常脆弱，需要細心照料，比起養成犬的難度更高！除了一般日常照護外， 『飲食』 更是奠定幼犬健康茁壯.........
+                </span>
+                <span class="source">資料來源：SofyDOG</span><br>
+              </div>
+            </div>
+          </a>
+        </li>
+        <!-- 飼料高人氣 -->
+        <li>
+          <a href="https://www.sofydog.com/tw/SofyDOG/blog-detail/369/">
+            <img src="飼料高人氣.jpg" alt="">
+            <div class="article-info-wrapper">
+              <h3>2023最新版｜飼料推薦7大高人氣品牌評比！</h3>
+              <div class="article-details">
+                <span class="description">
+                  吃得好不如吃得巧，常常看到廣告的飼料一定最好嗎？那也不一定！最重要的是要挑選一款適合自家狗狗需求的飼料才是王道！閱讀完本篇文章，就更清楚該怎麼為狗狗買飼料囉！
+                </span>
+                <span class="source">資料來源：SofyDOG</span><br>
+              </div>
+            </div>
+          </a>
+        </li>
+        <!-- 飼料推薦 -->
+        <li>
+          <a href="https://www.sofydog.com/tw/SofyDOG/blog-detail/368/">
+            <img src="飼料推薦.jpg" alt="">
+            <div class="article-info-wrapper">
+              <h3>2023狗飼料推薦｜飼料類型百百種，怎麼挑選報你知！</h3>
+              <div class="article-details">
+                <span class="description">
+                  家中的毛小孩就像是家人般的重要，故在狗飼料挑選也必須要講究。尤其是，市面上狗飼料推薦百百款，光是主食就有：乾飼料、罐頭、鮮食、生食4大類。而每一種都有自己的特性...
+                </span>
+                <span class="source">資料來源：SofyDOG</span><br>
+              </div>
+            </div>
+          </a>
+        </li>
+        <!-- 罐頭推薦 -->
+        <li>
+          <a href="https://www.sofydog.com/tw/SofyDOG/blog-detail/375/">
+            <img src="罐頭.jpg" alt="">
+            <div class="article-info-wrapper">
+              <h3>2023狗罐頭推薦｜罐頭推薦就看這，只給狗狗最好的！</h3>
+              <div class="article-details">
+                <span class="description">
+                  通常大家習慣以乾飼料作為狗狗的主食，但因為以往我們對於罐頭的既定印象都是又油又不健康，但現在大家對於寵物食品的要求越來越嚴格，原料等級也越來越高級，甚至有許多......
+                </span>
+                <span class="source">資料來源：SofyDOG</span><br>
+              </div>
+            </div>
+          </a>
+        </li>
+        <!-- 零食推薦 -->
+        <li>
+          <a href="https://www.sofydog.com/tw/SofyDOG/blog-detail/381/">
+            <img src="零食.jpg" alt="">
+            <div class="article-info-wrapper">
+              <h3>2023 狗零食推薦｜選購要點要注意，營養美味毛孩吃得超開心！</h3>
+              <div class="article-details">
+                <span class="description">
+                  毛孩除了要給予營養豐富的正餐以外，狗零食也是特別推薦用來獎勵毛孩的禮物。由於市面上販售的狗零食種類眾多，想要挑對狗零食，那就推薦要先知道狗零食挑選要點有哪些！......
+                </span>
+                <span class="source">資料來源：SofyDOG</span><br>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 衣物推薦 -->
+    <div class="page" id="clothing">
+      <!-- <h2>衣物推薦</h2> -->
+      <!-- <p>這是關於寵物狗衣物推薦的內容。</p> -->
+      <section>
+        <h1>常見的狗狗胸背品牌：</h1>
+        <h2>狗用胸背帶不僅是頸部及氣管較脆弱狗狗的救星，更能有效矯正毛孩子拉扯牽繩、暴衝的惡習。</h2>
+        <ul id="brandList">
+        </ul>
+
+        <h1>狗狗品牌胸背推薦清單：</h1>
+        
+        <div class="product2">
+          <img src="ruffwear.jpg" alt="">
+          <h3>美國RUFFWEAR</h3>
+          <div class="product2-info-wrapper">
+            <p>
+              RUFFWEAR 為美國知名的寵物品牌，以專業生產各種狗狗用品而聞名全球。
+              其中這款胸背帶可說是為了讓狗狗能與飼主一起享受戶外活動而開發的商品。
+              RUFFWEAR胸背是一款輕盈且能快速穿脫的寵物胸背帶，共有六個調節點，更加服貼狗狗的身形，略帶有厚度的緩衝墊可從胸前保護到腹部，
+              當狗狗在戶外奔跑活動時能防止因跌倒或掉落所造成的衝擊。
+            </p>
+            <p>
+              而狗狗腳的活動區域範圍完全沒有金屬零件和背帶的干擾，布面的轉折處則是加工成圓形，有助於防止啃咬和摩擦，
+              如果屬於熱愛戶外活動的中大型犬，想要以更優越的裝備來陪伴牠們，那麼選擇這款準沒錯。
+            </p>
+            <p>
+              
+              大而堅固的金屬帶扣環選用世界最知名ITW Nexus Mach buckles，增加遛狗的安全性，搭配上耐磨性佳的布料，耐用性堪稱無懈可擊。
+              三個牽繩的扣環點(胸前加固織帶扣環、背部鋁合金扣環、背部加固織帶扣環)，可以更保護您狗狗的骨骼與肌肉不被防暴衝胸背帶拉傷。
+            </p>
+          </div>
+        </div>
+        ----------------------------------------------------------------------------------------------------
+
+        <div class="product2">
+          <img src="K9.jpg" alt="">
+          <h3>匈牙利 JULIUS-K9</h3>
+          <div class="product2-info-wrapper">
+            <p>
+              JULIUS-K9 推出的 IDC專業犬用胸背以安全性、合身度、耐用性而聞名，就連警犬也都指名愛用。
+              商品本身設計時以狗狗的體型和特性做為考量，務求讓身體負擔降到最低，且同時保有能讓飼主控制其行為的特長。
+              馬鞍式的俐落剪裁，厚實的用料，背帶本身具有一定的挺度，胸前的帶子能夠穩定維持在胸骨的位置，
+              不會因為暴衝而壓迫到氣管，穿上時也可以很順的符合狗狗的身形。
+            </p>
+            <p>
+              不僅如此，胸背帶不會摩擦到關節的活動部位，彎曲的肘部也不會觸碰到金屬零件，
+              只要在穿戴時調整到合宜的大小，散步過程中無須擔心會移位。
+              再加上整體重心很穩，以把手將狗狗整個水平抬起懸在空中也沒問題，相信是能長久陪伴狗狗的優質良品。
+            </p>
+            <p>
+              它具備完整功能，前方胸條有一整面的反光帶，兩側作有黏貼式的側邊條，可以客製化製作狗狗的名字或slogan，貼上出門更拉風。
+              背帶上有防暴衝提把，遇到緊急危險時，可以一把將狗狗拉起來。另外也有可以掛名牌、狂犬病吊牌等的小掛勾。
+            </p>
+          </div>
+        </div>
+        ----------------------------------------------------------------------------------------------------
+        
+        
+        <div class="product2">
+          <img src="EZYDOG.jpg" alt="">
+          <h3>澳洲 EzyDOG 快套式胸背帶</h3>
+          <div class="product2-info-wrapper">
+            <p>
+              EzyDOG創立的精神是"提倡主人帶寵物多從事戶外活動"，所以它們設計的產品都很適合外出使用，可以讓狗狗外出時得到舒適的保護。
+              且這款快套式胸背帶是市面上穿戴速度最快，舒適又容易使用的胸背帶。
+              適合好動不喜歡穿胸背帶的狗狗使用，穿戴最快只需2秒鐘，讓毛小孩出門散步不費事。
+            </p>
+            <p>
+              EZYDOG 快套式胸背帶像個容易使用的項圈但又有胸背帶的實用功能，
+              內襯是由柔軟的佳績布製成,讓狗狗活動起來不會有不舒服感，增加愛犬使用上的舒適度！
+              此布料有抗臭功能又容易清洗，不容易吸附狗狗的氣味及毛，加上獨特的可調式前胸帶，一次調整後即可穿戴。
+              添加反光設計可增加夜間能見度以及可滑動的不鏽鋼O型環。
+            </p>
+            <p>
+              透氣涼感又極度清亮的胸背帶，覆蓋面積極小的設計適合台灣氣候使用，胸背帶內部都有做佳積布內襯穿戴舒適又涼爽，
+              加上最小尺寸不到50公克，讓狗狗外出穿戴時非常輕鬆不累贅，並且堅固耐用。
+            </p>
+          </div>
+        </div>
+        ----------------------------------------------------------------------------------------------------
+
+        
+        <div class="product2">
+          <img src="sputnik.jpg" alt="">
+          <h3>台灣 Sputnik Explore</h3>
+          <div class="product2-info-wrapper">
+            <p>
+              SPUTNIK專注生活細節，勇於挑戰未知、渴望創造更多可能，
+              將潮流風格與設計品味結合寵物用品，使寵物用品獲得嶄新的流行樣貌，提供寵物與飼主更好的生活品質。
+            </p>
+            <p>
+              SPUTNIK Explore胸背帶以機能背包作為靈感，採用透氣網布搭配高品質泡綿，讓胸背帶同時具有高舒適性及透氣功能。
+              皮革鉤環設計不僅提升質感，更增加配件的延伸搭配性，毛孩穿戴舒適又有型，絕對是最搶眼的寵物單品！
+            </p>
+            <p>
+              擁有SPUTNIK專利超柔軟護墊及專利背帶結構設計，高回彈泡棉搭配透氣網布，能有效減輕狗狗暴衝時的壓力，拉扯時不會壓迫毛孩氣管，提供毛孩極佳舒適度。
+              加上專屬訂製金屬拉環一體成型、V字紋尼龍織帶以及YKK訂製扣具，提供高強度拉力與極佳柔軟度，力氣再大的狗狗都不怕。
+              而且100% LEATHER，上方使用真牛皮材料，使產品更加強韌耐用，也彰顯不凡品味。
+            </p>
+            <p>
+              穿戴設計簡易好穿脫，只需簡單的三個步驟，輕鬆享受散步時光。
+              胸寬為可調式，胸寬和四邊長度皆可調節，可依據狗狗體型調整最合身的尺寸，適合每位毛孩，機能感與舒適度十足。
+            </p>
+          </div>
+        </div>
+        ----------------------------------------------------------------------------------------------------
+
+        <div class="product2">
+          <img src="tailsnme.jpg" alt="">
+          <h3>台灣 tails&me尾巴與我</h3>
+          <div class="product2-info-wrapper">
+            <p>
+              Tails&me 尾巴與我，重視人與寵物之間的連結，以人寵共好關係出發，秉持著簡約好看的設計、舒服自然的色彩、高品質的選材用料，讓寵物用品重回簡單純粹的初衷。
+              以經典舒適細膩的品質、更加洗鍊簡約的設計、搭配療癒和諧的色彩，蘊含真誠與實在。
+              希望飼主雙手感受到的柔軟觸感，皆能忠實傳達至心愛的寵物身上，讓人與寵物之間的情感連結。
+              因為彼此的共同生活，實踐更多美好生活，
+            </p>
+            <p>
+              尾巴與我每項產品的細緻車工、縫紉技法皆保有真切的舒適度及實用性，選用厚實尼龍特殊織法，縝密厚實，同時保有順滑觸感，久握纏繞不扎手。
+              強化交界收編、收尾細密車縫，貼身摩擦不造成寵物皮膚刺癢。弧形插扣服貼寵物身形更舒適！
+              獨家專利ＴＭ扣環，按壓扣上，隨心自由搭配，為日常散步時光增添變換樂趣。
+            </p>
+            <p>
+              經典尼龍帶系列，沒有絲毫多餘，回到本質的簡單、輕盈、耐用、實在。 豐富飽滿的色彩款式，是入門不敗經典選擇。
+              H行胸背設計，5秒快速穿脫，前方Y字型分散壓力，舒適不壓迫。
+              100%的尼龍材質擁有強韌耐磨、柔軟度極佳、車工強化零死角的特點。
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 住所推薦 -->
+    <div class="page" id="housing">
+      <!-- <h2>住所推薦</h2> -->
+      <!-- <p>這是關於寵物狗住所推薦的內容。</p> -->
+      <div class="pet-card">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="yoyo.jfif" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="yoyo2.jfif" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="yoyo3.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="yoyo4.png" alt="">
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        <div class="pet-info-container">
+        <div class="pet-info-wrapper">
+          <h3 class="pet-name">1. 悠遊狗YOYO DOGS</h3>
+          <div class="pet-description">
+            <h2>美式精品寵物旅館homestay風格、住宿獨立大房間不關籠、每日戶外活動三個小時以上、24小時LIVE視訊</h2>
+            <p>
+              座落在桃園的悠遊狗，在網路上享有極高的聲譽，在其 900 坪的園區內，規劃了許多設施供狗狗跑跳、散步，
+              不用怕在遛狗狗時不安的狗狗掙脫牽繩跑到無影無蹤，在園區內都是極其安全的環境。
+              不僅如此，還承諾每天將有至少三小時的放風時間，加價 100 元還能享有特別照護，能夠和人員一起住宿等等，
+              讓特別粘人的毛小孩也能安心的睡覺。而基本的 24 小時遠端監控當然也是少不了，讓飼主在國外也能看著自己的毛小孩，全方位的照護是許多網友青睞的選擇。
+            </p>
+            <p>
+              悠遊狗除了分隔完整不關籠的狗狗旅館之外，還設有貓咪旅館、浪浪送養等服務，從此處我們就能看出，老闆及老闆娘是真的愛狗人士，
+              並非單純只是想營利而開設寵物旅館。而對於旅人最方便的一點就是悠遊狗提供高鐵中壢站、桃園機場及週邊停車場接送免費，
+              並且按距離加錢 200-800 元 新台幣不等，詳情可致電詢問喔！
+            </p>
+          </div>
+        </div>
+        </div>
+      </div>
+      ----------------------------------------------------------------------------------------------------
+
+      <div class="pet-card">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="blacknose.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="blacknose2.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="blacknose3.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="blacknose4.png" alt="">
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        <div class="pet-info-container">
+        <div class="pet-info-wrapper">
+          <h3 class="pet-name">2. 黑鼻子</h3>
+          <div class="pet-description">
+            <h2>櫃台與住宿區分離、中小型犬獨立房間及房內風扇、大狗房、活動區、球池、老犬安全池、24小時視訊連線</h2>
+            <p>
+              位於台北內湖的黑鼻子，是一間以客製化每一隻狗狗的住宿體驗聞名的寵物住宿旅館，
+              細心貼心的黑鼻子想到了所有可能遇到的狗狗問題，並提前讓員工訓練成能夠獨自應對許多不同的狗狗狀況。
+              除此之外，也在設施上擁有許多貼心設計，適度的挑高房間讓狗兒不被外面活動的狗兒打擾。
+              採用高止滑係數的軟木地板，保護狗兒關節以及腳掌，全平面空間讓狗兒不用住宿外出還需要爬樓梯，避免腰椎受到傷害，老犬也可以輕鬆活動行走。
+            </p>
+            <p>
+              針對一些個性敏感的狗兒，在住宿之前若有疑慮可以先預約提前看環境或是與工作人員安親，讓狗狗減少入住時的焦慮，也能讓飼主安心出國。
+              再針對狗狗散步的需求也是針對個案來安排，若是喜歡獨處的狗狗則會安排獨自外出的機會，不強迫狗狗社交，也將住宿區及櫃檯區分開，
+              讓狗狗不會因為聽到電話聲而神經緊張，而基本的 24 小時遠端監控當然也是少不了。所以若是在意以下三點需求的人可以優先考慮黑鼻子：
+              在意狗狗睡眠品質、在意狗狗散步需求、在意狗狗是否有社交需求。
+            </p>
+          </div>
+        </div>
+        </div>
+      </div>
+      ----------------------------------------------------------------------------------------------------
+
+      <div class="pet-card">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="woofinn.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="woofinn2.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="woofinn3.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="woofinn4.jpg" alt="">
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        <div class="pet-info-container">
+        <div class="pet-info-wrapper">
+          <h3 class="pet-name">3. 狗窩窩愛犬旅舍 Woof Inn</h3>
+          <div class="pet-description">
+            <h2>像家一般的寵物旅館、寬敞的客廳、24小時愛狗的保母姐姐陪伴、白天不關籠、24 小時遠端監控</h2>
+            <p>
+              位於台北精華區民生社區的狗窩窩 Woof Inn 是一間以「像家一般的寵物旅館」為口號的寵物寄宿旅館，
+              強調希望能讓狗狗到狗窩窩也能像在家裡一樣舒適。這裡的每一位保母都是本身有養狗或是有照顧狗狗經驗的愛狗人士，
+              而在狗窩窩，這些愛狗成癡的保母們將會 24 小時陪在狗狗身邊，並且提供一天散步兩次、24 小時遠端監控、
+              白天不關籠等服務，讓飼主們能夠安心將狗狗託付在這裡享受如家裡一般的貼心照料。
+            </p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- 活動推薦 -->
+    <div class="page" id="activity">
+      <!-- <h2>活動推薦</h2>
+      <p>這是關於寵物狗活動推薦的內容。</p> -->
+      <div id="activities-container"></div>
+    </div>
+  
+    <!-- 購買飼料 -->
+    <div class="page" id="shopping">
+      <!-- <h2>購買飼料</h2> -->
+      <!-- <p>這是關於購買寵物狗飼料的內容。</p> -->
+      <div class="product-listing">
+        <div class="product">
+          <img src="toma01.png" alt="Product 1">
+          <h3>【優格】</h3>
+          <h3>幼犬 羊肉+米</h3>
+          <h3>(聰明成長配方)</h3>
+          <p>價格：$900/3kg</p>
+          <div class="rating">
+            <button class="add-to-cart">加入購物車</button>
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div> 
+        </div>
+
+        <div class="product">
+          <img src="toma02.png" alt="Product 2">
+          <h3>【優格】</h3>
+          <h3>成幼犬 鮭魚+馬鈴薯</h3>
+          <h3>(敏感膚質配方)</h3>
+          <p>價格：$1060/3kg</p>
+          <div class="rating">
+            <button class="add-to-cart">加入購物車</button>
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div> 
+        </div>
+
+        <div class="product">
+          <img src="toma03.png" alt="Product 3">
+          <h3>【優格】</h3>
+          <h3>成犬 羊肉+米 小顆粒</h3>
+          <h3>(毛髮柔亮配方)</h3>
+          <p>價格：$900/3kg</p>
+          <div class="rating">
+            <button class="add-to-cart">加入購物車</button>
+            &#9733;&#9733;&#9733;&#9733;&#9733;
+          </div>     
+        </div>
+
+        <div class="product">
+            <img src="toma04.png" alt="Product 4">
+            <h3>【優格】</h3>
+            <h3>成犬 雞肉+米</h3>
+            <h3>(高適口性配方)</h3>
+            <p>價格：$900/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;&#9733;&#9733;
+            </div>    
+          </div>
+
+          <div class="product">
+            <img src="toma05.png" alt="Product 5">
+            <h3>【優格】</h3>
+            <h3>高齡犬 鮭魚+馬鈴薯</h3>
+            <h3>(熟齡養生配方)</h3>
+            <p>價格：$1060/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>    
+              &#9733;&#9733;&#9733;&#9733;&#9733;
+            </div>
+          </div>
+
+          <div class="product">
+            <img src="blackwood01.jpg" alt="Product 6">
+            <h3>【柏萊富】</h3>
+            <h3>功能性全齡 鮭魚+糙米</h3>
+            <h3>(腸胃保健配方)</h3>
+            <p>價格：$705/2.2kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="blackwood02.jpg" alt="Product 7">
+            <h3>【柏萊富】</h3>
+            <h3>功能性全齡 鯰魚+珍珠麥</h3>
+            <h3>(滋補養生配方)</h3>
+            <p>價格：$715/2.2kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="blackwood03.jpg" alt="Product 8">
+            <h3>【柏萊富】</h3>
+            <h3>功能性全齡 羊肉+糙米</h3>
+            <h3>(護膚亮毛配方)</h3>
+            <p>價格：$785/2.2kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="blackwood04.jpg" alt="Product 9">
+            <h3>【柏萊富】</h3>
+            <h3>特調幼犬 雞肉+糙米</h3>
+            <h3>(成長配方)</h3>
+            <p>價格：$715/2.2kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="blackwood05.jpg" alt="Product 10">
+            <h3>【柏萊富】</h3>
+            <h3>特調低卡 雞肉+糙米</h3>
+            <h3>(低卡保健配方)</h3>
+            <p>價格：$645/2.2kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="holis01.png" alt="Product 11">
+            <h3>【耐吉斯】</h3>
+            <h3>幼犬 羊肉配方</h3>
+            <h3>(紐澳放牧羊+海藻+石榴+鮭魚油)</h3>
+            <p>價格：$1110/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="holis02.png" alt="Product 12">
+            <h3>【耐吉斯】</h3>
+            <h3>成犬 羊肉配方</h3>
+            <h3>(紐澳放牧羊+海藻+石榴+鮭魚油)</h3>
+            <p>價格：$1110/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="holis03.png" alt="Product 13">
+            <h3>【耐吉斯】</h3>
+            <h3>成犬 火雞肉配方</h3>
+            <h3>(美國放養火雞+海藻+石榴+鮭魚油)</h3>
+            <p>價格：$1110/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="holis04.png" alt="Product 14">
+            <h3>【耐吉斯】</h3>
+            <h3>高齡犬 羊肉配方</h3>
+            <h3>(紐澳放牧羊+海藻+綠唇貝+鮭魚油)</h3>
+            <p>價格：$1110/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;&#9734;</span>
+            </div>            
+          </div>
+
+          <div class="product">
+            <img src="holis05.png" alt="Product 15">
+            <h3>【耐吉斯】</h3>
+            <h3>維根成犬 素食配方</h3>
+            <h3>(純淨天然 完全素食 燕麥+藍莓+亞麻仁)</h3>
+            <p>價格：$1280/3kg</p>
+            <div class="rating">
+              <button class="add-to-cart">加入購物車</button>
+              &#9733;&#9733;&#9733;<span style="color: lightgray">&#9734;&#9734;</span>
+            </div>            
+          </div>
+      </div>
+    </div>
+
+    <!-- 小組成員介紹 -->
+    <div class="page" id="group">
+      <h1>小組成員介紹</h1>
+      <div class="container">
+        <div class="member">
+            <img src="yuki.jpg" alt="成員1">
+            <h2>王祐綺</h2>
+            <p>資傳系1A · 1111811</p>
+        </div>
+
+        <div class="member">
+            <img src="mona.jpg" alt="成員2">
+            <h2>江語檬</h2>
+            <p>資傳系1A · 1111810</p>
+        </div>
+
+        <div class="member">
+            <img src="yang.jpg" alt="成員3">
+            <h2>楊蓁蓁</h2>
+            <p>資傳系1A · 1111813</p>
+        </div>
+
+        <div class="member">
+            <img src="doris.jpg" alt="成員4">
+            <h2>丁姮允</h2>
+            <p>資傳系1A · 1111815</p>
+        </div>
+    </div>
+
+  </main>
+
+  <footer>
+    版權所有 &copy; 2023 DLOG寵物狗部落格
+    <h4>mail: s1111813@mail.yzu.edu.tw</h4>
+    <h4>tel: 0972-847-526</h4>
+  </footer>
+  
+  <script>
+    function scrollToHome() {
+      location.hash = "#home";
+    }
+  </script>
+
+  <script>
+    // 獲取所有輪播圖片
+    const slides = document.querySelectorAll('.slideshow img');
+    let currentSlide = 0;
+
+    function nextSlide() {
+      // 將當前的圖片設為不可見
+      slides[currentSlide].style.opacity = 0;
+
+      // 增加currentSlide的索引
+      currentSlide = (currentSlide + 1) % slides.length;
+
+      // 將下一個圖片設為可見
+      slides[currentSlide].style.opacity = 1;
+    }
+
+    // 啟動輪播
+    setInterval(nextSlide, 3000); // 3秒換一張圖片
+  </script>
+
+  <!-- <script>
+    // 產品可點選
+    var products = document.querySelectorAll('.product');
+9999
+    products.forEach(function(product) {
+    product.addEventListener('click', function() {
+        window.location.href = 'product-details.html'; // 修改為詳細資訊頁面連結
+        });
+    });
+  </script> -->
+  
+  <!-- 加入購物車 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var addToCartButtons = document.getElementsByClassName('add-to-cart');
+        for (var i = 0; i < addToCartButtons.length; i++) {
+            addToCartButtons[i].addEventListener('click', function(event) {
+                event.preventDefault();
+                alert('已加入購物車');
+            });
+        }
+    });
+  </script>
+
+  <!-- 胸背列表 -->
+  <script src="script.js"></script>
+  <script>
+    const brands = [
+      '美國 RUFFWEAR',
+      '匈牙利 JULIUS-K9',
+      '澳洲 EzyDog',
+      '台灣 Sputnik',
+      '台灣 tails&me尾巴與我'
+    ];
+
+    const brandList = document.getElementById('brandList');
+    // brands.forEach(brand=>{
+    //   const listItem = document.createElement('li');
+    //   listItem.testContent = brand;
+    //   brandList,appendChild(listItem);
+    // });
+    brandList.innerHTML = brands.map(brand => `<li>${brand}</li>`).join('');
+  </script>
+
+  <!-- <script>
+    new Swiper(swiperContainer, {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: swiperContainer.querySelector('.swiper-button-next'),
+        prevEl: swiperContainer.querySelector('.swiper-button-prev'),
+      },
+      pagination: {
+        el: swiperContainer.querySelector('.swiper-pagination'),
+        clickable: true,
+      },
+    });
+  </script> -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+
+  <script src="script.js"></script>
+  <script>
+    // Sample data for pet activities
+    const activities = [
+      { name: '台北國際寵物展＆台北喵節', activityTime: '2023/2/25～2023/2/28', address: '台北世貿一館：台北市信義區信義路五段5號' },
+      { name: '台北寵物用品博覽會暨台灣貓節', activityTime: '2023/3/31～2023/4/03', address: '台北南港一館：台北市南港區經貿二路1號' },
+      { name: '展昭高雄寵物用品展', activityTime: '2023/4/21～2023/4/24', address: '高雄巨蛋：高雄市左營區博愛二路757號' },
+      { name: '展昭台中寵物用品展（口碑場）', activityTime: '2023/5/19～2023/5/22', address: '臺中國際展覽館：臺中市烏日區中山路三段1號' },
+      { name: '新竹寵物用品暨服務展', activityTime: '2023/6/22～2023/6/25', address: '新竹縣體育館：新竹縣竹北市福興東路一段197號' },
+      { name: '展昭台北寵物用品展', activityTime: '2023/7/7～2023/7/10', address: '台北南港一館：台北市南港區經貿二路1號' },
+      { name: '台北寵物用品博覽會', activityTime: '2023/9/1～2023/9/4', address: '台北世貿一館：台北市信義區信義路五段5號' },
+      { name: '台北國際寵物用品博覽會（冬季展）', activityTime: '2023/11/24～2023/11/27', address: '台北南港二館：台北市南港區經貿二路2號' },
+      { name: '展昭高雄寵物用品展', activityTime: '2023/12/8～2023/12/11', address: '高雄展覽館：高雄市前鎮區成功二路39號' },
+    ];
+
+    // Function to display activities
+    function displayActivities() {
+      const activitiesContainer = document.getElementById('activities-container');
+
+      activitiesContainer.innerHTML = '';
+
+      activities.forEach(activity => {
+        const activityElement = document.createElement('div');
+        activityElement.classList.add('activity');
+        
+        const nameElement = document.createElement('h2');
+        nameElement.textContent = activity.name;
+
+        const timeElement = document.createElement('p');
+        timeElement.innerHTML = `<i class="fas fa-calendar"></i> : ${activity.activityTime}`;
+        timeElement.classList.add('timeElement');
+
+        const addressElement = document.createElement('p');
+        const mapLink = `https://maps.google.com/?q=${encodeURIComponent(activity.address)}`;
+        addressElement.innerHTML = `<i class="fas fa-map-marker-alt"></i> <a href="${mapLink}" target="_blank">${activity.address}</a>`;
+        addressElement.classList.add('addressElement');
+
+        activityElement.appendChild(nameElement);
+        activityElement.appendChild(timeElement);
+        activityElement.appendChild(addressElement);
+
+        activitiesContainer.appendChild(activityElement);
+      });
+    }
+
+    // Call the displayActivities function to show the activities on page load
+    displayActivities();
+
+
+</script>
+
+</body>
+</html>
